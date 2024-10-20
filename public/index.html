@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+
+            document.getElementById('submitBtn').addEventListener('click', () => {
+                const email = document.getElementById('emailInput').value;
+                socket.emit('checkEmail', email);
+            });
+
+            socket.on('response', (message) => {
+                document.getElementById('response').innerText = message;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Проверка Email</h1>
+    <input type="text" id="emailInput" placeholder="Введите email">
+    <button id="submitBtn">Отправить</button>
+    <p id="response"></p>
+</body>
+</html>
